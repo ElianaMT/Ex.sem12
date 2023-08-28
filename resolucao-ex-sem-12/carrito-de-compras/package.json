@@ -7,7 +7,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "server": "json-server database.json -p 3000 --watch"
   },
   "dependencies": {
     "vue": "^3.3.4",
@@ -21,7 +22,9 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "eslint": "^8.46.0",
     "eslint-plugin-vue": "^9.16.1",
+    "json": "^11.0.0",
     "prettier": "^3.0.0",
+    "server": "^1.0.38",
     "vite": "^4.4.9"
   }
 }
