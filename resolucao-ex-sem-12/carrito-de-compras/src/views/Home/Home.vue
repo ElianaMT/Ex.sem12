@@ -1,45 +1,50 @@
 <template>
-    <h1>Produtos</h1>
-    <div class="list-products" >
+    <h1>Produtos {{"mensagemNoEstadoGlobal" }}</h1>
 
-    <v-card width="30%" class="pa-2 mb-2" v-for="product in products" :key="product.id">
+    <div class="list-products">
+
+        <v-card width="300px" class="pa-2 mb-2" v-for="product in products" :key="product.id"> 
         <v-img 
-        :src="product.imagem"
+            :src="product.imagem" 
             class="align-end" 
-            width="100%" 
-            hidden="200px" 
-            gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" 
-            cover aspect-ratio="1">
+            width="300px" 
+            hidden="200px"
+                gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)" 
+                cover aspect-ratio="1">
 
-            <v-card-title class="text-white">{{product.nome}}</v-card-title>
-        </v-img>
+                <v-card-title class="text-white">{{ product.nome }}</v-card-title>
+            </v-img>
 
-        <v-card-subtitle class="pt-4">
-            10X de {{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.parcela)}}
-        </v-card-subtitle>
+            <v-card-subtitle class="pt-4">
+                10X de {{ new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.parcela) }}
+            </v-card-subtitle>
 
-        <v-card-actions>
-            <v-btn color="orange">Comprar</v-btn>
-        </v-card-actions>
-    </v-card>
+            <v-card-actions>
+                <v-btn color="orange" @click="() => adicionarAoCarrinho(product)">Comprar</v-btn>
+            </v-card-actions>
+        </v-card>
 
-  </div>
+        {{ produtosCarrinho.length }} no carrinho
+
+    </div>
 </template>
 
 <script>
 import axios from "axios"
 
-export default{
+export default {
     data() {
         return {
-            products:[ ]
+            products: [],
+            produtosCarrinho: []
         }
+            
     },
 
 
     mounted() {
         this.loadProducts()
-        
+
     },
     methods: {
         loadProducts() {
@@ -48,25 +53,30 @@ export default{
                 method: "GET"
             })
 
-        .then((response)=>{
-            this.products = response.data
-           
-        })
+                .then((response) => {
+                    this.products = response.data
 
-        .catch(()=>{
-            alert("Desculpe, nao foi possivel recuper os produtos")
+                })
 
-})
+                .catch(() => {
+                    alert("Desculpe, nao foi possivel recuper os produtos")
+
+                })
+
+        },
+        adicionarAoCarrinho(produto) {
+            this.produtosCarrinho.push(produto)
+        }
+
     }
-    },
- }
+}
 </script>
 
 <style>
-.list-products{ 
+.list-products {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;   
-   
+    justify-content: space-between;
+
 }
 </style>
