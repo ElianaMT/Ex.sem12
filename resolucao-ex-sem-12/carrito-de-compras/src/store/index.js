@@ -11,8 +11,31 @@ const store = createStore({
         alterarTeste(state, value){
             state.teste = value
         },
-        adicionarProdutoAoCarrinho(state,value){
-            state.produtosCarrinho = [...state.produtosCarrinho, value ]
+        adicionarProdutoAoCarrinho(state,produtoRecebido){
+            const produtoNoCarrinho = state.produtosCarrinho.find(produto => produto.id === produtoRecebido.id)
+
+            if(produtoNoCarrinho){
+
+                state.produtosCarrinho = state.produtosCarrinho.map(item =>{
+
+                    if(item.id === produtoRecebido.id){
+                        item.quantidade= item.quantidade + 1
+                    }
+                    return item
+
+                }
+                    )
+
+            }else{
+                state.produtosCarrinho = [
+                    ...state.produtosCarrinho,
+                    {
+                       ...produtoRecebido, 
+                       quantidade: 1
+                    }
+                ]
+
+            } 
         }
     },
 
@@ -24,9 +47,7 @@ const store = createStore({
             
             },
             adicionarProduto(context, value) {
-                console.log("entrei dentro do adicionar produto")
-                console.log(value.product)
-                context.commit("adicionarProdutoAoCarrinho", value.product)
+            context.commit("adicionarProdutoAoCarrinho", value.product)
         }
     }
 })
