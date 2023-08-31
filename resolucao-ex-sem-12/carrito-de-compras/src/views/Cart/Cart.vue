@@ -1,7 +1,8 @@
 <template>
    Cart
-   {{this.$store.state.teste }}
-
-   <button @click="this.$store.dispatch('alterarNome', {nome: 'DevinHouse'} )">Cliquei</button>
+   
+   <v-table>
+      
+   </v-table>
 
 </template>

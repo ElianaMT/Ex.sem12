@@ -1,5 +1,7 @@
 <template>
-    <h1>Produtos {{"mensagemNoEstadoGlobal" }}</h1>
+    <h1>Produtos {{ this.$store.state.produtosCarrinho.length }}</h1>
+
+    <button @click="this.$store.dispatch('alterarNome', {nome: 'Ely'} )">Cliquei</button>
 
     <div class="list-products">
 
@@ -20,11 +22,11 @@
             </v-card-subtitle>
 
             <v-card-actions>
-                <v-btn color="orange" @click="() => adicionarAoCarrinho(product)">Comprar</v-btn>
+                <v-btn color="orange" @click="() => this.$store.dispatch('adicionarProduto', {product})">Comprar</v-btn>
             </v-card-actions>
         </v-card>
 
-        {{ produtosCarrinho.length }} no carrinho
+      
 
     </div>
 </template>
@@ -35,12 +37,10 @@ import axios from "axios"
 export default {
     data() {
         return {
-            products: [],
-            produtosCarrinho: []
-        }
+            products: []
             
-    },
-
+        }
+      },
 
     mounted() {
         this.loadProducts()
@@ -64,11 +64,7 @@ export default {
                 })
 
         },
-        adicionarAoCarrinho(produto) {
-            this.produtosCarrinho.push(produto)
         }
-
-    }
 }
 </script>
 

@@ -3,16 +3,17 @@ import {createStore} from "vuex"
 const store = createStore({ 
     state() { 
         return { 
-            teste: "Hola"
-    
-        }
+            teste: "Hola",
+            produtosCarrinho: []
+            }
     },
     mutations: {
         alterarTeste(state, value){
             state.teste = value
-
+        },
+        adicionarProdutoAoCarrinho(state,value){
+            state.produtosCarrinho = [...state.produtosCarrinho, value ]
         }
-
     },
 
     actions:{ 
@@ -20,6 +21,12 @@ const store = createStore({
             console.log(value.nome)
             console.log("entrei no alterar nome")
             context.commit("alterarTeste", value.nome)
+            
+            },
+            adicionarProduto(context, value) {
+                console.log("entrei dentro do adicionar produto")
+                console.log(value.product)
+                context.commit("adicionarProdutoAoCarrinho", value.product)
         }
     }
 })
